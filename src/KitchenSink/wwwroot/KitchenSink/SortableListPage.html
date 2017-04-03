@@ -9,8 +9,6 @@
           <th>Name</th>
         </tr>
       </thead>
-      <tbody>
-        <template is="dom-repeat" items="{{model.PersonItems}}">
 		<style>
 		.mybutton{
 		fill: #4082ed;
@@ -20,6 +18,8 @@
 		fill: #000000;
 		}
 		</style>
+      <tbody>
+        <template is="dom-repeat" items="{{model.PersonItems}}">
           <tr>
             <td>{{item.Person.Name}}</td>
 			<td>
