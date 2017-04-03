@@ -1,0 +1,23 @@
+{
+  "Html": "/KitchenSink/FileUploadPage.html",
+  "SessionId": "",
+  "UploadUrl": "/KitchenSink/fileupload/upload",
+  "Files": [
+    {
+      "FileName": "",
+      "FilePath": "",
+      "FileSize": 0,
+      "FileSizeString": "",
+      "DeleteTrigger$": 0
+    }
+  ],
+  "Tasks": [
+    {
+      "FileName": "",
+      "FileSize": 0,
+      "FileSizeString": "",
+      "Progress": 0,
+      "Message": ""
+    }
+  ]
+}

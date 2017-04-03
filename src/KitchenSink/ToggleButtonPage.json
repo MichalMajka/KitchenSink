@@ -1,0 +1,8 @@
+{
+  "Html": "/KitchenSink/ToggleButtonPage.html",
+
+  "AcceptTermsAndConditions$": true,
+
+  "AcceptTermsAndConditionsReaction": "",
+  "$AcceptTermsAndConditionsReaction": { "Bind": "CalculatedAcceptTermsAndConditionsReaction" }
+}

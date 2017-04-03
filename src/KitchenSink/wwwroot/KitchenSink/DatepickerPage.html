@@ -1,0 +1,24 @@
+﻿<link rel="import" href="/sys/pikaday-decorator/pikaday-decorator.html" />
+<template>
+    <template is="dom-bind">
+        <p class="lead">JSON's primitive value type <code>string</code> can be mapped directly to HTML form <code>input type="text"</code> with a datepicker.</p>
+
+        <label class="control-label">Date</label>
+
+        <pikaday-decorator format="YYYY-MM-DD">
+            <input type="text" value="{{model.Value$::change}}" class="form-control kitchensink-test-pikaday-input" placeholder="Select a date to parse" />
+        </pikaday-decorator>
+
+        <label class="control-label">Year</label>
+
+        <input type="text" value="{{model.Year}}" readonly="readonly" class="form-control kitchensink-test-year-input" />
+
+        <label class="control-label">Month</label>
+
+        <input type="text" value="{{model.Month}}" readonly="readonly" class="form-control kitchensink-test-month-input" />
+
+        <label class="control-label">Day</label>
+
+        <input type="text" value="{{model.Day}}" readonly="readonly" class="form-control kitchensink-test-day-input" />
+    </template>
+</template>

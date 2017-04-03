@@ -1,0 +1,61 @@
+﻿<template>
+    <template is="dom-bind">
+        <h1>Autocomplete</h1>
+
+        <div title="products">
+            <p class="lead">
+                This autocomplete field uses DB as source. Enter <code>'*'</code> to show all available items
+            </p>
+
+            <input type="text" class="form-control" value="{{model.ProductsSearch$::input}}" placeholder="Whiskey? Whisky?" on-blur="clearProducts" />
+            <ul class="kitchensink-autocomplete">
+                <template is="dom-repeat" items="{{model.FoundProducts}}">
+                    <!-- Blur fires before click, but after mousedown -->
+                    <li on-mousedown="selectProduct" class="kitchensink-autocomplete__item" item="{{item}}">{{item.Name}}</li>
+                </template>
+            </ul>
+            <p id="kitchensink-autocomplete-price">{{model.ProductsText}}</p>
+        </div>
+        <br/>
+        <div title="places">
+            <p class="lead">
+                This autocomplete field uses pre-defined list of places (although it's usually better to use DB as source).
+            </p>
+            <input type="text" class="form-control" value="{{model.PlacesSearch$::input}}" placeholder="Poland? Sweden?" on-blur="clearPlaces" />
+            <ul class="kitchensink-autocomplete">
+                <template is="dom-repeat" items="{{model.FoundPlaces}}">
+                    <li on-mousedown="selectPlace" class="kitchensink-autocomplete__item" item="{{item}}">{{item.Name}}</li>
+                </template>
+            </ul>
+            <p id="kitchensink-autocomplete-capital">{{model.PlacesText}}</p>
+        </div>
+    </template>
+    <script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+
+            template.clearPlaces = function () {
+                template.set("model.ClearPlaces$", ++template.model.ClearPlaces$);
+            };
+
+            template.clearProducts = function () {
+                template.set("model.ClearProducts$", ++template.model.ClearProducts$);
+            };
+
+            template.selectProduct = function (ev) {
+                var item = ev.currentTarget.item;
+                var index = template.model.FoundProducts.indexOf(item);
+                template.set("model.FoundProducts." + index + ".Select$",
+                    ++template.model.FoundProducts[index].Select$);
+            };
+
+            template.selectPlace = function (ev) {
+                var item = ev.currentTarget.item;
+                var index = template.model.FoundPlaces.indexOf(item);
+                template.set("model.FoundPlaces." + index + ".Select$",
+                    ++template.model.FoundPlaces[index].Select$);
+            };
+        })();
+    </script>
+</template>

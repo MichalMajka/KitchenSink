@@ -1,0 +1,244 @@
+<!--
+version: 0.0.1
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="starcounter-upload">
+    <style>
+        :host {
+            display: inline-block;
+        }
+
+        :host input[type=file] {
+            display: none;
+        }
+    </style>
+
+    <template>
+        <content></content>
+        <input type="file" accept="{{fileFilter}}" id="fileElement" on-change="filesSelectedChanged" file-select="filesSelectedClick" multiple$="{{multiple}}" />
+    </template>
+    <script>
+        "use strict";
+
+        Polymer({
+            is: "starcounter-upload",
+            properties: {
+                uploadUrl: {
+                    type: String,
+                    value: null
+                },
+                tasks: {
+                    type: Array,
+                    value: [],
+                    notify: true
+                },
+                fileFilter: {
+                    type: String,
+                    value: ""
+                },
+                sessionId: {
+                    type: String,
+                    value: null
+                },
+                multiple: {
+                    type: Boolean,
+                    value: false
+                },
+                chunkLength: {
+                    type: Number,
+                    value: 8192
+                }
+            },
+            selectFile: function () {
+                this.$.fileElement.click();
+            },
+            abortAllTasks: function (e) {
+                for (var i = 0; i < this.tasks.length ; i++) {
+                    var task = this.tasks[i];
+
+                    if (task.socket != null) {
+                        task.socket.close(3001, "Aborted");
+                    }
+
+                    task.error = "Aborted";
+                    this.fire("statechange", task);
+                }
+
+                this.set("tasks", []);
+            },
+            processTask: function (task) {
+                var index = this.tasks.indexOf(task);
+                var that = this;
+
+                this.set("tasks." + index + ".error", null);
+                this.set("tasks." + index + ".progress", 0);
+
+                var self = this;
+                this.executeTask(task, function (task) {
+                    // Success
+                    var index = self.tasks.indexOf(task);
+
+                    if (index > -1) {
+                        self.splice("tasks", index, 1);
+                        that.fire("statechange", task);
+                    }
+                }, function (task) {
+                    // Error
+                    var index = self.tasks.indexOf(task);
+
+                    if (index > -1) {
+                        self.notifyPath("tasks." + index + ".error", task.error);
+                        that.fire("statechange", task);
+                    }
+
+                }, function (task) {
+                    // Progress
+                    var index = self.tasks.indexOf(task);
+
+                    if (index > -1) {
+                        self.notifyPath("tasks." + index + ".progress", task.progress);
+                        that.fire("statechange", task);
+                    }
+                });
+            },
+            executeTask: function (task, successCallback, errorCallback, progressCallback) {
+                task.progress = 0;
+
+                try {
+                    this.uploadTask(task, successCallback, errorCallback, progressCallback);
+                } catch (ex) {
+                    task.error = ex;
+                    console.error(task.error);
+
+                    if (typeof (errorCallback) == "function") {
+                        errorCallback(task);
+                    }
+                }
+            },
+            uploadTask: function (task, successCallback, errorCallback, progressCallback) {
+                var file = task.file;
+                var chunkLength = this.chunkLength;
+                var url = this.getUploadUrl(file);
+                var socket = new WebSocket(url);
+
+                task.socket = socket;
+
+                socket.onopen = function () {
+                    var reader = new FileReader();
+                    var currentBytePosition = 0;
+
+                    reader.onloadend = function (evt) {
+                        if (evt.target.readyState == FileReader.DONE) {
+                            if (socket == null || socket.readyState != 1) {
+                                // Not OPEN
+                                return;
+                            }
+
+                            socket.send(evt.currentTarget.result);
+                            currentBytePosition = currentBytePosition + evt.loaded;
+
+                            if (currentBytePosition >= file.size) {
+                                return;
+                            }
+
+                            // Load next chunk
+                            var endByte = currentBytePosition + chunkLength;
+
+                            if (endByte > file.size) {
+                                endByte = file.size;
+                            }
+
+                            var blob = file.slice(currentBytePosition, currentBytePosition + chunkLength);
+                            reader.readAsArrayBuffer(blob);
+                        }
+                    };
+
+                    if (typeof (progressCallback) == "function") {
+                        progressCallback(task);
+                    }
+
+                    var blob = file.slice(currentBytePosition, currentBytePosition + chunkLength);
+                    reader.readAsArrayBuffer(blob);
+                };
+
+                socket.onclose = function (evt) {
+                    socket = null;
+
+                    if (evt.code == 1000 || evt.code == 1005) { // CLOSE_NORMAL
+                        if (typeof (successCallback) == "function") {
+                            successCallback(task);
+                        }
+                    } else {
+                        if (evt.reason) {
+                            task.error = evt.reason + " (" + evt.code + ")";
+                        }
+                        else {
+                            task.error = "Socket Error code: " + evt.code;
+                        }
+
+                        if (typeof (errorCallback) == "function") {
+                            errorCallback(task);
+                        }
+                    }
+                };
+
+                socket.onmessage = function (evt) {
+                    task.progress = evt.data;
+
+                    if (task.progress >= 100) {
+                        socket.close(1000);
+                    }
+
+                    if (typeof (progressCallback) == "function") {
+                        progressCallback(task);
+                    }
+                };
+
+                socket.onerror = function (evt) {
+                    console.error("Socket error: ", JSON.stringify(evt));
+                };
+            },
+            getUploadUrl: function (file) {
+                var url = this.uploadUrl + "?filename=" + file.name + "&filesize=" + file.size + "&sessionid=" + this.sessionId;
+
+                url = new URL(url, window.location);
+                url.protocol = "ws:";
+                url = url.toString();
+
+                return url;
+            },
+            getFileSizeString: function (size) {
+                var sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+
+                if (size == 0) {
+                    return "0 Byte";
+                }
+
+                var i = parseInt(Math.floor(Math.log(size) / Math.log(1024)));
+                var size = Math.round(size / Math.pow(1024, i), 2) + " " + sizes[i];
+
+                return size;
+            },
+            filesSelectedChanged: function () {
+                var files = this.$.fileElement.files;
+
+                for (var i = 0 ; i < files.length; i++) {
+                    var task = {
+                        file: files[i],
+                        progress: 0,
+                        error: null,
+                        sizeString: this.getFileSizeString(files[i].size)
+                    };
+
+                    this.push("tasks", task);
+                    this.fire("statechange", task);
+                    this.processTask(task);
+                }
+
+                this.$.fileElement.value = "";
+            }
+        });
+    </script>
+</dom-module>

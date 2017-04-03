@@ -1,0 +1,8 @@
+{
+  "Html": "/KitchenSink/CheckboxPage.html",
+
+  "DrivingLicense$": true,
+
+  "DrivingLicenseReaction": "",
+  "$DrivingLicenseReaction": { "Bind": "CalculatedDrivingLicenseReaction" }
+}

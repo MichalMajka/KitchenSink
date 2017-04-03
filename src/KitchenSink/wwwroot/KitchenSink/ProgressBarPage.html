@@ -1,0 +1,20 @@
+﻿<template>
+    <template is="dom-bind">
+        <h2> Running expensive tasks in background </h2>
+        <p> This example demonstrates how to run expensive tasks in the background. The key feature here is that the session does not get locked while these tasks are running, 
+            and is continually updated throughout the progression of the task. </p>
+
+        <p> Read more about <code>Scheduling.ScheduleTask</code> and <code>Session.ScheduleTask</code> on starcounter.io - <a href="http://starcounter.io/guides/transactions/running-background-jobs/">Running background jobs</a>. </p>
+       
+         <div class="kitchensink-progress-bar__container">
+            <span class="kitchensink-progress-bar__percentages"> {{model.Progress}}% </span>
+            <div class="kitchensink-progress-bar__fill" style="width:{{model.Progress}}%"></div>
+        </div>
+        <p>
+            <button class="btn btn-sm btn-default kitchensink-progress-bar__button" value="{{model.StartProgressTrigger$::click}}" onmousedown="++this.value" disabled$="{{model.TaskIsRunnning}}"> {{model.DownloadButtonText}} </button>
+            <template is="dom-if" if="{{model.Progress}}">
+                <span>{{model.FileDownloadText}}</span>
+            </template>
+        </p>
+    </template>
+</template>

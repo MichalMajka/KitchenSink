@@ -1,0 +1,9 @@
+﻿<link rel="import" href="/sys/paper-toggle-button/paper-toggle-button.html" />
+
+<template>
+  <template is="dom-bind">
+    <p class="lead">JSON's primitive value type <code>boolean</code> can be mapped to a toggle button element.</p>
+    <div class="kitchensink-test-tooglebutton-label">{{model.AcceptTermsAndConditionsReaction}}</div>
+    <paper-toggle-button class="kitchensink-test-tooglebutton" checked="{{model.AcceptTermsAndConditions$::change}}"></paper-toggle-button>
+  </template>
+</template>

@@ -1,0 +1,8 @@
+{
+  "Html": "/KitchenSink/TextareaPage.html",
+
+  "Bio$": "",
+
+  "BioReaction": "",
+  "$BioReaction": { "Bind": "CalculatedBioReaction" }
+}

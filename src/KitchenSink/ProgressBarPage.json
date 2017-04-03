@@ -1,0 +1,11 @@
+{
+  "Html": "/KitchenSink/ProgressBarPage.html",
+  "Progress": 0,
+
+  "StartProgressTrigger$": 0,
+
+  "TaskIsRunnning": false,
+
+  "FileDownloadText": "",
+  "DownloadButtonText": "Download (imaginary) file!"
+}

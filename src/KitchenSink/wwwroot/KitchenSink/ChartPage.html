@@ -1,0 +1,31 @@
+﻿<link rel="import" href="/sys/chart-elements/chart-line.html" />
+
+<template>
+    <template is="dom-bind">
+        <p class="lead">JSON's <code>array</code> can be used to create a chart with a helper custom element, e.g. <a href="http://robdodson.github.io/chart-elements">chart-elements</a>.</p>
+
+        <chart-line id="chrt"></chart-line>
+    </template>
+    <script>
+        var template = document.currentScript.previousElementSibling;
+        template.addEventListener('dom-change', function () {
+            var chart = document.getElementById("chrt");
+
+            chart.data = {
+                labels: template.model.Labels,
+                datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: template.model.Temperatures
+                }
+                ]
+            };
+        });
+    </script>
+</template>

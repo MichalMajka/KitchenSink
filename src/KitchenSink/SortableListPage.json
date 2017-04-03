@@ -1,0 +1,14 @@
+{
+	"Html": "/KitchenSink/SortableListPage.html",
+
+	"PersonItems": [
+		{
+			"Person": {
+				"Name": "",
+				"SequenceNumber": 0
+				},
+			"MovePersonUpTrigger$": 0,
+			"MovePersonDownTrigger$": 0
+		}
+	],
+}

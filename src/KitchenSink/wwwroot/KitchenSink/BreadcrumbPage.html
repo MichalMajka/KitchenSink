@@ -1,0 +1,54 @@
+﻿<link rel="import" href="/sys/x-breadcrumb/x-breadcrumb.html" />
+<link rel="import" href="/sys/x-breadcrumb/x-crumb.html" />
+
+<template>
+    <template is="dom-bind">
+        <h1>Breadcrumbs</h1>
+
+        <h2>Simple breadcrumb</h2>
+
+        <p class="lead">A JSON <code>array</code> of <code>objects</code> can used as a breadcrumb navigation. The below example uses <code>template is="dom-repeat"</code> with <code>span</code>.</p>
+        <div>
+            <template is="dom-repeat" items="{{model.Breadcrumbs}}" restamp>
+                <template is="dom-if" if="{{index}}" restamp>
+                    &gt;
+                </template>
+                <span class="btn" select="{{item.SelectTrigger$::mouseup}}" onmousedown="++this.select">{{item.Name}}</span>
+            </template>
+        </div>
+
+        <h2>Breadcrumb with navigation</h2>
+
+        <p class="lead">It doesn't take much more to add a multidimensional navigation to the breadcrumb. The below example uses <code>template is="dom-repeat"</code> with <code><a href="https://github.com/Juicy/x-breadcrumb">x-breadcrumb</a></code> custom element.</p>
+
+        <x-breadcrumb class="kitchensink-x-breadcrumb">
+            <template is="dom-repeat" items="{{model.Breadcrumbs}}" restamp>
+                <x-crumb value="{{item.Name}}"
+                         search-query="{{item.SearchQuery$}}"
+                         dropdown="true"
+                         active$="{{item.IsActive}}"
+                         ghost$="{{item.IsGhost}}">
+                    <ul class="kitchensink-breadcrumb-suggestions">
+                        <template is="dom-repeat" items="{{item.Siblings}}" restamp>
+                            <li class="kitchensink-breadcrumb-suggestions__item" select="{{item.SelectTrigger$::click}}" onmousedown="++this.select">{{item.Name}}</li>
+                        </template>
+                        <li class="kitchensink-breadcrumb-suggestions__item" select="{{item.AddSiblingTrigger$::click}}" onmousedown="++this.select">+ Add a new type</li>
+                    </ul>
+                </x-crumb>
+            </template>
+        </x-breadcrumb>
+        <template is="dom-if" if="{{model.CurrentTreeItem.IsAdd}}" restamp>
+            <h5>Adding a new type in <strong>{{model.CurrentTreeItem.ParentName}}</strong></h5>
+        </template>
+
+        <template is="dom-if" if="{{!model.CurrentTreeItem.IsAdd}}" restamp>
+            <h5>Editing <strong>{{model.CurrentTreeItem.Name$}}</strong></h5>
+        </template>
+
+        <label class="control-label">Name</label>
+
+        <input type="text" value="{{model.CurrentTreeItem.Name$::change}}" placeholder="Name" class="form-control">
+
+        <button class="btn btn-sm btn-default" value="{{model.CurrentTreeItem.SaveTrigger$::click}}" onmousedown="++this.value">Save</button>
+    </template>
+</template>

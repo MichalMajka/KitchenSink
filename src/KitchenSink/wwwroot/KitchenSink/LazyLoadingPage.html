@@ -1,0 +1,95 @@
+﻿<link rel="import" href="/sys/polymer/polymer.html">
+
+<template>
+    <template is="dom-bind">
+        <h2> Lazy Loading </h2>
+        <p> By using <code>Scheduling.ScheduleTask</code> and <code>Session.ScheduleTask</code> it is possible to achieve asynchronous data loading. </p>
+        <p> In the table below, one can retrieve data for every person by hovering them. As a person gets hovered, it will automatically start loading that persons data. Once the data has been loaded, it will fill the "Favorite Game" column. </p>
+
+        <table class="table table-striped table-hover table-sortable-list">
+            <thead>
+                <tr>
+                    <th> Order </th>
+                    <th> Name </th>
+                    <th> Favorite Game </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items="{{model.People}}" as="people">
+                    <tr class="kitchensink-lazy-loading__tooltip" onmouseover="{{hoverFunction}}" onmouseout="{{hoverOutFunction}}">
+                        <td>{{people.Order}}</td>
+                        <td>{{people.FirstName}} {{people.LastName}} </td>
+                        <template is="dom-if" if="{{people.DataIsLoaded}}">
+                            <td>{{people.FavoriteGame}}</td>
+                        </template>
+                        <template is="dom-if" if="{{!people.DataIsLoaded}}">
+                            <td> </td>
+                        </template>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <template is="dom-if" if="{{model.DisplayHoverBox$}}">
+            <div class="kitchensink-lazy-loading__hover-box">
+                <p>{{model.SelectedPersonsName$}}'s Favorite game</p>
+
+                <template is="dom-if" if="{{showLoadSpinner(model.DisplayedData.DataContent$)}}">
+                    <div class="kitchensink-lazy-loading__spinning-loading"></div>
+                </template>
+
+                <template is="dom-if" if="{{!showLoadSpinner(model.DisplayedData.DataContent$)}}">
+                    <p>{{model.DisplayedData.DataContent$}}</p>
+                </template>
+            </div>
+        </template>
+
+    </template>
+    <script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+            var currentTargetIndex;
+
+            template.showLoadSpinner = function (displayedData) {
+                return displayedData == "";
+            }
+
+            template.hoverFunction = function (event) {
+                currentTargetIndex = event.currentTarget.rowIndex - 1;
+                template.set("model.DisplayHoverBox$", true);
+                template.set("model.SelectedPersonsName$", template.model.People[currentTargetIndex].FirstName);
+                template.set("model.DisplayedData.DataContent$", template.model.People[currentTargetIndex].DataToShow);
+                startDataRetrievalTest = setTimeout(template.startDataRetrievalTest.bind(null, event), 300);
+            };
+
+            template.startDataRetrievalTest = function (event) {
+                template.set("model.People." + currentTargetIndex + ".IsHovered$", 1);
+                triggerMouseup(event.currentTarget); // Triggers a mouse event, to trigger a JSON patch
+            };
+
+            template.hoverOutFunction = function () {
+                clearTimeout(startDataRetrievalTest);
+                template.set("model.DisplayHoverBox$", false);
+                template.set("model.People." + currentTargetIndex + ".IsHovered$", 0);
+                triggerMouseup(event.currentTarget);
+            };
+
+            // Fakes a mouseclick, Is called on hover.
+            //https://github.com/PuppetJs/PuppetJs/blob/gh-pages/test/SpecHelper.js
+            function triggerMouseup(elem) {
+                fireEvent((elem || document.body), 'mouseup')
+            }
+            function fireEvent(obj, evt) {
+                var fireOnThis = obj;
+                if (document.createEvent) {
+                    var evObj = document.createEvent('MouseEvents');
+                    evObj.initEvent(evt, true, false);
+                    fireOnThis.dispatchEvent(evObj);
+                } else if (document.createEventObject) {
+                    var evObj = document.createEventObject();
+                    fireOnThis.fireEvent('on' + evt, evObj);
+                }
+            }
+        })();
+    </script>
+</template>

@@ -1,0 +1,25 @@
+﻿<link href="/sys/paper-dialog/paper-dialog.html" rel="import" />
+
+<template>
+    <template is="dom-bind">
+        <p class="lead">Modal dialog box example</p>
+        <p>
+            <button class="btn btn-sm btn-default" value="{{model.OpenTrigger$::click}}" onmousedown="++this.value">Open dialog box</button>
+        </p>
+        <p class$="{{model.MessageCss}}">{{model.Message}}</p>
+
+        <paper-dialog id="actions" opened="[[model.Opened]]" modal="true">
+            <div>
+                <h2>Confirmation</h2>
+                <p>
+                    This is a<code>paper-dialog</code> demo confirmation. Would you like to <b>Reject</b> or <b>Accept</b> the confirmation?
+                </p>
+            </div>
+            <div class="buttons">
+                <button class="btn btn-sm btn-default" dialog-dismiss value="{{model.RejectTrigger$::click}}" onmousedown="++this.value;">Reject</button>
+                <span>&nbsp;</span>
+                <button class="btn btn-sm btn-primary" dialog-confirm autofocus value="{{model.ConfirmTrigger$::click}}" onmousedown="++this.value;">Accept</button>
+            </div>
+        </paper-dialog>
+    </template>
+</template>

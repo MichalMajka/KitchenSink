@@ -1,0 +1,14 @@
+{
+  "Html": "/KitchenSink/DatagridPage.html",
+
+  "Pets": [
+    {
+      "Name$": "",
+      "Kind$": "",
+      "Sound": "",
+      "$Sound": { "Bind": "CalculatedSound" }
+    }
+  ],
+
+  "AddPetTrigger$": 0
+}

@@ -1,0 +1,31 @@
+﻿<link rel="import" href="/sys/juicy-select/juicy-select.html" />
+
+<template>
+    <template is="dom-bind">
+        <p class="lead">Array of json items in combination with <code>juicy-select</code> can be used as a simple select element with multi select option.</p>
+        <p>
+            <span>Select countries you have visited:</span>
+            <br />
+            <juicy-select class="kitchensink-juicyselect" multiple="true" options="{{model.Countries}}" selected-property="Selected$" text-property="Name" value-property="Name">
+                <select class="form-control" multiple></select>
+            </juicy-select>
+        </p>
+        <p>
+            <span>Select your favorite country:</span>
+            <juicy-select class="kitchensink-juicyselect" caption-text="No favorite country" value="{{model.FavoriteCountry$}}" options="{{model.Countries}}" selected-property="Selected$" text-property="Name" value-property="Name">
+                <select class="form-control"></select>
+            </juicy-select>
+        </p>
+        <p>
+            You have visited:
+            <template is="dom-repeat" items="{{model.Countries}}">
+                <template is="dom-if" if="{{item.Selected$}}">
+                    <span>{{item.Name}}</span>;
+                </template>
+            </template>
+        </p>
+        <p>
+            Your favorite country is: <span>{{model.FavoriteCountry$}}</span>
+        </p>
+    </template>
+</template>

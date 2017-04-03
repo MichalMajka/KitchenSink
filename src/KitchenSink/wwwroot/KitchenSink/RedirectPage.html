@@ -1,0 +1,36 @@
+﻿<link rel="import" href="/sys/puppet-redirect/puppet-redirect.html">
+
+<template>
+    <template is="dom-bind">
+        <p class="lead">JSON's primitive value type <code>string</code> can be used to cause the client to morph to a new URL using <code><a href="https://github.com/PuppetJs/puppet-redirect">link is="puppet-redirect"</a></code>.</p>
+
+        <h5>Morph the current partial</h5>
+
+        <p>You can the current partial to a new URL while keeping the state.</p>
+
+        <label>Morph to some: </label>
+
+        <button class="btn btn-sm btn-default kitchensink-test-fruit-button" value="{{model.ChooseFood$::click}}" onmousedown="this.value = 'Fruit'">Fruit</button>
+
+        <button class="btn btn-sm btn-default kitchensink-test-vegetable-button" value="{{model.ChooseFood$::click}}" onmousedown="this.value = 'Vegetable'">Vegetable</button>
+
+        <button class="btn btn-sm btn-default kitchensink-test-bread-button" value="{{model.ChooseFood$::click}}" onmousedown="this.value = 'Bread'">Bread</button>
+
+        <div class="kitchensink-test-favourite-food-label">{{model.YourFavoriteFood}}</div>
+
+        <h5>Morph to another partial</h5>
+
+        <p>Want to morph to another partial? It's as easy.</p>
+
+        <button class="btn btn-sm btn-default kitchensink-test-morph-button" value="{{model.GoToHomePartialTrigger$::click}}" onmousedown="++this.value">Morph to another partial</button>
+
+        <h5>Redirect to an external link</h5>
+
+        <p>Drop the <code>history</code> attribute to redirect to an external link (without morphing).</p>
+
+        <button class="btn btn-sm btn-default kitchensink-test-redirect-button" value="{{model.GoToDocsTrigger$::click}}" onmousedown="++this.value">Redirect to Starcounter.io</button>
+
+        <link is="puppet-redirect" history url$="{{model.MorphUrl$}}" />
+        <link is="puppet-redirect" url$="{{model.RedirectUrl$}}" />
+    </template>
+</template>

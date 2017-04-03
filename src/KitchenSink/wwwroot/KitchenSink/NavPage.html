@@ -1,0 +1,68 @@
+﻿<template>
+    <template is="dom-bind">
+        <div class="kitchensink-layout">
+            <nav class="kitchensink-layout__column-left">
+                <ul class="kitchensink-menu__list">
+                    <li><a href="/KitchenSink/MainPage">MainPage</a></li>
+                </ul>
+                <h3 class="kitchensink-menu__heading kitchensink-menu__heading--first">String</h3>
+                <ul class="kitchensink-menu__list">
+                    <li><a href="/KitchenSink/Text">Text</a></li>
+                    <li><a href="/KitchenSink/Password">Password</a></li>
+                    <li><a href="/KitchenSink/Textarea">Textarea</a></li>
+                    <li><a href="/KitchenSink/Markdown">Markdown</a></li>
+                    <li><a href="/KitchenSink/Html">Html</a></li>
+                    <li><a href="/KitchenSink/Datepicker">Datepicker</a></li>
+                    <li><a href="/KitchenSink/Url">Url</a></li>
+                    <li><a href="/KitchenSink/Redirect">Redirect</a></li>
+                    <li><a href="/KitchenSink/Validation">Validation</a></li>
+                </ul>
+                <h3 class="kitchensink-menu__heading">Number</h3>
+                <ul class="kitchensink-menu__list">
+                    <li><a href="/KitchenSink/Integer">Integer</a></li>
+                    <li><a href="/KitchenSink/Decimal">Decimal</a></li>
+                    <li><a href="/KitchenSink/Button">Button</a></li>
+                    <li><a href="/KitchenSink/Geo">Map</a></li>
+                </ul>
+                <h3 class="kitchensink-menu__heading">Boolean</h3>
+                <ul class="kitchensink-menu__list">
+                    <li><a href="/KitchenSink/Checkbox">Checkbox</a></li>
+                    <li><a href="/KitchenSink/ToggleButton">Togglebutton</a></li>
+                    <!--<li><a href="/KitchenSink/Conditionals">Conditionals</a></li> not ready yet -->
+                </ul>
+                <h3 class="kitchensink-menu__heading">Object</h3>
+                <ul class="kitchensink-menu__list">
+                    <li><a href="/KitchenSink/Nested">Nested partials</a></li>
+                </ul>
+                <h3 class="kitchensink-menu__heading">Array</h3>
+                <ul class="kitchensink-menu__list">
+                    <li><a href="/KitchenSink/Radio">Radio</a></li>
+                    <li><a href="/KitchenSink/Dropdown">Dropdown</a></li>
+                    <li><a href="/KitchenSink/Radiolist">Radiolist</a></li>
+                    <li><a href="/KitchenSink/Multiselect">Multiselect</a></li>
+                    <li><a href="/KitchenSink/Table">Table</a></li>
+                    <li><a href="/KitchenSink/Datagrid">Datagrid</a></li>
+                    <li><a href="/KitchenSink/Chart">Chart</a></li>
+                    <!--<li><a href="/KitchenSink/Navigation">Navigation</a></li> not ready yet-->
+                    <li><a href="/KitchenSink/Breadcrumb">Breadcrumb</a></li>
+                </ul>
+                <h3 class="kitchensink-menu__heading">Custom</h3>
+                <ul class="kitchensink-menu__list">
+                    <li><a href="/KitchenSink/FileUpload">File upload</a></li>
+                    <li><a href="/KitchenSink/Cookie">Set a cookie</a></li>
+                    <li><a href="/KitchenSink/Dialog">Dialog box</a></li>
+                    <li><a href="/KitchenSink/Callback">Callback behavior</a></li>
+                    <li><a href="/KitchenSink/Autocomplete">Autocomplete</a></li>
+                    <li><a href="/KitchenSink/ProgressBar"> Progress Bar</a></li>
+                    <li><a href="/KitchenSink/LazyLoading"> Lazy Loading</a></li>
+                    <li><a href="/KitchenSink/Pagination">Pagination</a></li>
+                    <li><a href="/KitchenSink/FlashMessage">Flash Message</a></li>
+					<li><a href="/KitchenSink/SortableList">Sortable list</a></li>
+                </ul>
+            </nav>
+            <div class="kitchensink-layout__column-right">
+                <starcounter-include partial="{{model.CurrentPage}}"></starcounter-include>
+            </div>
+        </div>
+    </template>
+</template>

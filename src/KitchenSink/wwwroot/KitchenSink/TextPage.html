@@ -1,0 +1,21 @@
+﻿<template>
+    <template is="dom-bind">
+        <p class="lead">JSON's primitive value type <code>string</code> can be mapped directly to HTML form <code>input type="text"</code>.</p>
+
+        <h5>Listening to changes</h5>
+
+        <p>Bind to <code>::change</code> listener to send the new value to the server when the field is unfocused. Read more about the target change events in the <a href="https://www.polymer-project.org/1.0/docs/devguide/data-binding.html#two-way-native">Polymer docs</a>.</p>
+
+        <label class="control-label kitchensink-test-name-label">{{model.NameReaction}}</label>
+
+        <input type="text" value="{{model.Name$::change}}" placeholder="Name" class="form-control kitchensink-test-name-input">
+
+        <h5>Listening to changes while typing</h5>
+
+        <p>Need to update the server after each keystroke? Bind to <code>::input</code>:</p>
+
+        <label class="control-label kitchensink-test-name-label-dynamic">{{model.NameLiveReaction}}</label>
+
+        <input type="text" value="{{model.NameLive$::input}}" placeholder="Name" class="form-control kitchensink-test-name-input-dynamic">
+    </template>
+</template>

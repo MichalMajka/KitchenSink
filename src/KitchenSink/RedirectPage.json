@@ -1,0 +1,11 @@
+{
+  "Html": "/KitchenSink/RedirectPage.html",
+
+  "ChooseFood$": "",
+  "YourFavoriteFood": "Select your favorite food",
+  "GoToHomePartialTrigger$": 0,
+  "MorphUrl$": "",
+
+  "GoToDocsTrigger$": 0,
+  "RedirectUrl$": ""
+}

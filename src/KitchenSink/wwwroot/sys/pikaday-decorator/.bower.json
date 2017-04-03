@@ -1,0 +1,42 @@
+{
+  "name": "pikaday-decorator",
+  "version": "0.2.1",
+  "authors": [
+    "Florian Roy"
+  ],
+  "description": "Pikaday decorator with polymer",
+  "main": "element/*",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "keywords": [
+    "Polymer",
+    "web-components",
+    "datepicker",
+    "html",
+    "pikaday"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.1.*",
+    "pikaday": "master",
+    "momentjs": "2.*"
+  },
+  "devDependencies": {
+    "web-component-tester": "*"
+  },
+  "homepage": "https://github.com/display-interactive/pikaday-decorator",
+  "_release": "0.2.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.1",
+    "commit": "4323095008a9268e0d1b1c87fdcc4fd42c266ae0"
+  },
+  "_source": "git://github.com/display-interactive/pikaday-decorator.git",
+  "_target": "~0.2.1",
+  "_originalSource": "display-interactive/pikaday-decorator",
+  "_direct": true
+}

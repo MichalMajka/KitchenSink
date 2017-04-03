@@ -1,0 +1,39 @@
+{
+  "name": "hot-table",
+  "description": "Polymer Element wrapper for Handsontable data grid editor",
+  "license": "MIT",
+  "main": "hot-table.html",
+  "keywords": [
+    "polymer",
+    "web-components",
+    "datagrid",
+    "grid",
+    "table"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "examples",
+    "..",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0",
+    "handsontable": "~0.23.0"
+  },
+  "devDependencies": {
+    "google-map": "GoogleWebComponents/google-map#^1.1.7"
+  },
+  "homepage": "https://github.com/handsontable/hot-table",
+  "_release": "a40f177654",
+  "_resolution": {
+    "type": "branch",
+    "branch": "fix-styles-issue-23",
+    "commit": "a40f17765410e8f930f0c1f16cb34cde5ec9d9e6"
+  },
+  "_source": "git://github.com/handsontable/hot-table.git",
+  "_target": "fix-styles-issue-23",
+  "_originalSource": "handsontable/hot-table"
+}

@@ -1,0 +1,12 @@
+{
+  "Html": "/KitchenSink/TablePage.html",
+
+  "Pets": [
+    {
+      "Name": "",
+      "Kind": ""
+    }
+  ],
+
+  "AddPetTrigger$": 0
+}

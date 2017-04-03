@@ -1,0 +1,13 @@
+﻿<template>
+    <template is="dom-bind">
+        <p class="lead">JSON's primitive value type <code>object</code> can be used for nesting of the partials. This also works for recursive nesting.</p>
+
+        <div class="kitchensink-nested-child">
+            <button class="btn btn-sm btn-default" value="{{model.AddChildTrigger$::click}}" onmousedown="++this.value">Add child</button>
+            <div>Hi, <span>{{model.Name}}</span></div>
+            <div>
+                <starcounter-include partial="{{model.ChildPartial}}"></starcounter-include>
+            </div>
+        </div>
+    </template>
+</template>

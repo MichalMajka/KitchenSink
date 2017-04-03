@@ -1,0 +1,8 @@
+{
+  "Html": "/KitchenSink/IntegerPage.html",
+
+  "Age$": 0,
+
+  "AgeReaction": "",
+  "$AgeReaction": { "Bind": "CalculatedAgeReaction" }
+}

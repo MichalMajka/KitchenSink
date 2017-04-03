@@ -1,0 +1,25 @@
+{
+    "name": "pikaday-decorator",
+    "version": "0.2.1",
+    "authors": [
+        "Florian Roy"
+    ],
+    "description": "Pikaday decorator with polymer",
+    "main": "element/*",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "keywords": ["Polymer", "web-components", "datepicker", "html", "pikaday"],
+    "dependencies": {
+        "polymer": "Polymer/polymer#^1.1.*",
+        "pikaday": "master",
+        "momentjs": "2.*"
+    },
+    "devDependencies": {
+        "web-component-tester": "*"
+    }
+}

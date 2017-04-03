@@ -1,0 +1,11 @@
+﻿<link rel="import" href="/sys/juicy-html/juicy-html.html" />
+<template>
+  <template is="dom-bind">
+    <p class="lead">JSON's primitive value type <code>string</code> can be rendered as HTML using a helper custom element, such as <a href="http://github.com/juicy/juicy-html">juicy-html</a>.</p>
+
+    <div>
+        <template is="juicy-html" content$="{{model.Bio}}">
+        </template>
+    </div>
+  </template>
+</template>

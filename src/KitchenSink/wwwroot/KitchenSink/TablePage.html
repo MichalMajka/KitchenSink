@@ -1,0 +1,24 @@
+﻿<template>
+  <template is="dom-bind">
+    <p class="lead">JSON's <code>array</code> and <code>object</code> can be used to create a HTML <code>table</code>.</p>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Kind</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template is="dom-repeat" items="{{model.Pets}}">
+          <tr>
+            <td>{{item.Name}}</td>
+            <td>{{item.Kind}}</td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+
+    <button class="btn btn-sm btn-default" value="{{model.AddPetTrigger$::click}}" onmousedown="++this.value">Add a pet</button>
+  </template>
+</template>

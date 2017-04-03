@@ -1,0 +1,42 @@
+﻿<link rel="import" href="/sys/polymer/polymer.html">
+
+<template>
+    <template is="dom-bind">
+        <p class="lead"> Flash Message </p>
+        <p>By pressing the buttons below, you will trigger a message to be displayed for 3 seconds. It is possible to trigger a message both from the server side, and the client side!</p>
+        <p>By using <code>&lt;template is="dom-if"&gt;</code> it is possible to hide or show an element in the HTML depending on the result of the if-statement.</p>
+
+        <p>And if you combine that with <code>Scheduling.ScheduleTask</code> and <code>Session.ScheduleTask</code> you can make a server side message appear.</p>
+
+        <p>
+            <button class="btn btn-default" value="{{model.ShowMessageTrigger$::click}}" onmousedown="++this.value">Trigger message from Server side</button>
+        </p>
+
+        <template is="dom-if" if="{{model.ServerMessage}}">
+            <p class="alert alert-info">{{model.ServerMessage}} </p>
+        </template>
+
+        <p>And by combining <code>&lt;template is="dom-if"&gt;</code> with a click event and a timed function, by using <code>setTimeout</code> you can achieve the same behavior.</p>
+        <p>
+            <button class="btn btn-default" on-click="showMessage">Trigger message from Client side</button>
+        </p>
+
+        <template is="dom-if" if="{{model.ClientMessage$}}">
+            <p class="alert alert-warning">{{model.ClientMessage$}} </p>
+        </template>
+
+    </template>
+    <script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+
+            template.showMessage = function () {
+                template.set("model.ClientMessage$", "This message was set on the Client Side!");
+                setTimeout(() => {
+                    template.set("model.ClientMessage$", "");
+                }, 3000);
+            };
+        })();
+    </script>
+</template>

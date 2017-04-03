@@ -1,0 +1,85 @@
+﻿<link rel="import" href="/sys/polymer/polymer.html">
+<link rel="import" href="/sys/juicy-select/juicy-select.html">
+
+<template>
+    <style>
+        juicy-select select {
+            width: 250px;
+            margin-bottom: 30px;
+        }
+    </style>
+    <template is="dom-bind">
+        <juicy-select class="kitchensink-juicyselect dropdown kitchensink-test-juicy-select"
+                      value="{{model.EntriesPerPage$::change}}"
+                      options="{{model.PageEntries}}"
+                      text-property="Amount"
+                      value-property="Amount">
+        </juicy-select>
+        <ul>
+            <template is="dom-repeat" items="{{model.Library}}" as="book">
+                <li class="kitchensink-pagination-entry kitchensink-test-pagination-result-li">{{book.Title}} - {{book.Author}}</li>
+            </template>
+        </ul>
+        <nav>
+            <ul class="pagination kitchensink-test-pagination">
+                <li>
+                    <span id="kitchensink-pagination-first" tabindex="0" value="{{model.FirstPageTrigger$::click}}" on-click="onFirstPageClick" href="">&lt;&lt;</span>
+                </li>
+                <li class$="{{getLiClassDisabled(model.DisableFirst)}}">
+                    <span id="kitchensink-pagination-previous" tabindex="0" value="{{model.PreviousPageTrigger$::click}}" on-click="onPreviousPageClick">&lt;</span>
+                </li>
+                <template is="dom-repeat" items="{{model.Pages}}">
+                    <li class$="{{getLiClassActive(item.Active)}}">
+                        <span class="kitchensink-pagination-change" tabindex="0" on-click="onChangePageClick" page-number="{{item.PageNumber}}">{{item.PageNumber}}</span>
+                    </li>
+                </template>
+                <li class$="{{getLiClassDisabled(model.DisableLast)}}">
+                    <span id="kitchensink-pagination-next" tabindex="0" value="{{model.NextPageTrigger$::click}}" on-click="onNextPageClick">&gt;</span>
+                </li>
+                <li>
+                    <span id="kitchensink-pagination-last" tabindex="0" value="{{model.LastPageTrigger$::click}}" on-click="onLastPageClick">&gt;&gt;</span>
+                </li>
+            </ul>
+        </nav>
+        <p class="kitchensink-test-pagination-label">page {{model.CurrentPage}} of {{model.TotalPages}}</p>
+    </template>
+    <script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+
+            triggerModelAction = function (prop) {
+                template.set("model." + prop, parseInt(template.get("model." + prop), 10) + 1);
+            };
+
+            template.onChangePageClick = function (event) {
+                var span = event.currentTarget;
+                template.set("model.ChangePage$", span.pageNumber);
+            };
+
+            template.onFirstPageClick = function (event) {
+                triggerModelAction("FirstPageTrigger$");
+            };
+
+            template.onLastPageClick = function (event) {
+                triggerModelAction("LastPageTrigger$");
+            };
+
+            template.onNextPageClick = function (event) {
+                triggerModelAction("NextPageTrigger$");
+            };
+
+            template.onPreviousPageClick = function (event) {
+                triggerModelAction("PreviousPageTrigger$");
+            };
+
+            template.getLiClassDisabled = function (disabled) {
+                return disabled ? "disabled" : "";
+            };
+
+            template.getLiClassActive = function (active) {
+                return active ? "active" : "";
+            };
+        })();
+    </script>
+</template>

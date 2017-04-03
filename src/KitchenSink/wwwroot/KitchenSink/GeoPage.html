@@ -1,0 +1,14 @@
+﻿<link rel="import" href="/sys/google-map/google-map.html" />
+<link rel="import" href="/sys/google-map/google-map-marker.html" />
+
+<template>
+    <template is="dom-bind">
+        <p class="lead">JSON's primitive value type <code>number</code> can be used to provide latitude/longitude information for a map custom element, e.g. <a href="https://elements.polymer-project.org/elements/google-map">google-maps</a>.
+        </p>
+
+        <google-map class="kitchensink-google-map" latitude="[[model.Position.Latitude$]]" longitude="[[model.Position.Longitude$]]" fit-to-markers zoom="12">
+            <google-map-marker id="kitchensink-geopage-marker" draggable="true" title="Hi Stockholm!" latitude="{{model.Position.Latitude$}}" longitude="{{model.Position.Longitude$}}"></google-map-marker>
+        </google-map>
+        <button value="{{model.Position.ResetTrigger$::click}}" onclick="this.value++" class="btn btn-primary">Reset</button>
+    </template>
+</template>

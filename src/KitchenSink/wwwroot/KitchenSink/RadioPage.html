@@ -1,0 +1,18 @@
+﻿<link rel="import" href="/sys/paper-radio-group/paper-radio-group.html" />
+<link rel="import" href="/sys/paper-radio-button/paper-radio-button.html" />
+
+<template>
+  <template is="dom-bind">
+    <p class="lead">A combination of JSON's primitive value types <code>array</code>, <code>object</code> and <code>number</code> can be mapped to a radio input group.</p>
+
+    <p>We recommend using <a href="https://elements.polymer-project.org/elements/paper-radio-group">paper-radio-group</a> and <a href="https://elements.polymer-project.org/elements/paper-radio">paper-radio</a>, because native <code>input type="radio"</code> lacks an onuncheck event, which makes unchecking not detectable with pure HTML.</p>
+
+    <paper-radio-group selected="{{model.SelectedPet$}}">
+        <template is="dom-repeat" items="{{model.Pets}}">
+            <paper-radio-button test-value$="{{item.Label}}" class="kitchensink-test-radio-buttons" name="{{item.Label}}">{{item.Label}}</paper-radio-button>
+        </template>
+    </paper-radio-group>
+
+    <div class="kitchensink-test-pet-reaction-label">{{model.PetReaction}}</div>
+  </template>
+</template>

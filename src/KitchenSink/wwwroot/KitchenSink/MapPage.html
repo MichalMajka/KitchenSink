@@ -1,0 +1,20 @@
+﻿<link rel="import" href="/sys/google-map/google-map.html" />
+<link rel="import" href="/sys/google-map/google-map-marker.html" />
+
+<template>
+  <template is="dom-bind">
+    <p class="lead">JSON's primitive value type <code>number</code> can be used to provide latitude/longitude information for a map custom element, e.g. <a href="https://elements.polymer-project.org/elements/google-map">google-maps</a>.</p>
+
+    <style>
+      google-map {
+        height: 300px;
+      }
+    </style>
+
+    <div>
+        <google-map latitude="[[model.Position.lat]]" longitude="[[model.Position.lng]]" fit-to-markers zoom="12">
+          <google-map-marker title="Hi Stockholm!" latitude="[[model.Position.lat]]" longitude="[[model.Position.lng]]"></google-map-marker>
+        </google-map>
+    </div>
+  </template>
+</template>

@@ -1,0 +1,19 @@
+﻿<template>
+    <template is="dom-bind">
+        <p class="lead">JSON's primitive value type <code>string</code> can be mapped directly to HTML form <code>input type="text"</code> with require validation.</p>
+
+        <label class="control-label">Please type your name</label>
+
+        <input type="text" test-value$="{{model.Name$}}" value="{{model.Name$::change}}" placeholder="Name" class="form-control">
+        <label class="error-label kitchensink-test-name-error-label">{{model.ErrorName$}}</label>
+        <br />
+
+        <label class="control-label">Please type your last name</label>
+
+        <input type="text" test-value$="{{model.LastName$}}" value="{{model.LastName$::change}}" placeholder="Last name" class="form-control">
+        <label class="error-label kitchensink-test-lastname-error-label">{{model.ErrorLastName$}}</label>
+        <br/>
+
+        <button class="btn btn-sm btn-default" value="{{model.ValidateTrigger$::click}}" onmousedown="++this.value">Validate</button>
+    </template>
+</template>
